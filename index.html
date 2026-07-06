@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login</title>
+<title>Login Page</title>
 
 <style>
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:Arial, sans-serif;
 }
 
 body{
@@ -18,44 +18,40 @@ body{
     justify-content:center;
     align-items:center;
     height:100vh;
-    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    background:#f2f2f2;
 }
 
-.login-box{
+.container{
     width:350px;
-    background:white;
-    padding:35px;
-    border-radius:15px;
-    box-shadow:0 10px 30px rgba(0,0,0,.3);
+    background:#fff;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
 
-.login-box h2{
+.container h2{
     text-align:center;
-    margin-bottom:25px;
-    color:#333;
-}
-
-.input-box{
     margin-bottom:20px;
 }
 
-.input-box input{
+input{
     width:100%;
     padding:12px;
+    margin:10px 0;
     border:1px solid #ccc;
-    border-radius:8px;
+    border-radius:5px;
     font-size:16px;
 }
 
 button{
     width:100%;
     padding:12px;
-    border:none;
-    border-radius:8px;
     background:#007BFF;
     color:white;
-    font-size:17px;
+    border:none;
+    border-radius:5px;
     cursor:pointer;
+    font-size:16px;
 }
 
 button:hover{
@@ -63,36 +59,42 @@ button:hover{
 }
 </style>
 
+<script src="https://forminit.com/f/3tx2fxkd3su"></script>
 </head>
+
 <body>
 
-<div class="login-box">
+<div class="container">
+    <h2>Login</h2>
 
-<h2>Login</h2>
+    <form id="myForm">
+        <input type="text" name="fi-text-box1" placeholder="Enter Value 1" required>
+        <input type="text" name="fi-text-box2" placeholder="Enter Value 2" required>
 
-<form action="https://forminit.com/f/3tx2fxkd3su" method="POST">
+        <button type="submit">Submit</button>
+    </form>
 
-<div class="input-box">
-<input
-type="text"
-name="Username"
-placeholder="Enter Username"
-required>
+    <p id="status"></p>
 </div>
 
-<div class="input-box">
-<input
-type="password"
-name="Password"
-placeholder="Enter Password"
-required>
-</div>
+<script>
+const forminit = new Forminit();
 
-<button type="submit">Login</button>
+document.getElementById("myForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-</form>
+    const formData = new FormData(e.target);
 
-</div>
+    const { error } = await forminit.submit("3tx2fxkd3su", formData);
+
+    if (error) {
+        document.getElementById("status").innerHTML = error.message;
+    } else {
+        document.getElementById("status").innerHTML = "Submitted Successfully!";
+        e.target.reset();
+    }
+});
+</script>
 
 </body>
 </html>
